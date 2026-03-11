@@ -931,7 +931,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
 
 .project-img-container {
   position: relative;
-  height: 300px;
+  height: 250px;
   overflow: hidden;
 }
 
@@ -1174,4 +1174,5 @@ footer::before {
     transform: scale(0.98);
   }
 }
+
 
