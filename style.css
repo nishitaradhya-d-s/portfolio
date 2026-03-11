@@ -33,6 +33,26 @@ body.light-theme {
   --footer-bg: #e0e7ff;
 }
 
+/* Light theme skill card fixes */
+body.light-theme .skill-card {
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .skill-card i {
+  color: var(--brand-color);
+}
+
+body.light-theme .skill-card:hover {
+  background: var(--brand-color);
+  color: white !important;
+  border-color: transparent;
+}
+
+body.light-theme .skill-card:hover i {
+  color: white;
+}
+
 body {
   background: var(--bg-body);
   color: var(--text-primary);
@@ -61,7 +81,7 @@ body {
   50% { transform: scale(1.5); opacity: 0.3; }
 }
 
-/* ========== FLOATING PARTICLES ========== */
+/* ========== FLOATING PARTICLES (enhanced) ========== */
 .particles {
   position: fixed;
   top: 0;
@@ -73,7 +93,7 @@ body {
   background: radial-gradient(circle at 20% 50%, rgba(108,140,255,0.15) 0%, transparent 50%),
               radial-gradient(circle at 80% 80%, rgba(160,90,255,0.15) 0%, transparent 50%),
               radial-gradient(circle at 40% 20%, rgba(255,255,255,0.05) 0%, transparent 40%);
-  animation: particleMove 25s infinite alternate, particlePulse 8s infinite;
+  animation: particleMove 20s infinite alternate, particlePulse 5s infinite;
 }
 
 @keyframes particleMove {
@@ -187,7 +207,7 @@ body.light-theme .theme-toggle .fa-moon {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-  animation: profileGlow 3s infinite;
+  animation: profileGlow 3s infinite, float 6s ease-in-out infinite;
 }
 
 @keyframes profileGlow {
@@ -1124,21 +1144,24 @@ footer {
   text-shadow: 0 0 15px var(--glow-color);
 }
 
-/* ========== RESPONSIVE (Mobile) ========== */
+/* ========== RESPONSIVE (Mobile) – COMPLETELY REVISED ========== */
 @media (max-width: 768px) {
   .hero {
     min-height: auto;
-    padding: 2rem 1rem;
+    padding: 3rem 1.5rem;
     text-align: center;
   }
 
   .hero-main {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .profile-wrapper {
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .profile-img-container {
@@ -1146,24 +1169,36 @@ footer {
     height: 200px;
   }
 
+  .profile-status {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+    bottom: 5px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
   .hero-text {
-    padding: 0 0.5rem;
+    padding: 0;
+    width: 100%;
   }
 
   .welcome-text {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
   }
 
   .name {
-    font-size: 2.2rem;
+    font-size: 2.5rem;
   }
 
   .tagline {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .internship-info {
-    font-size: 0.95rem;
+    font-size: 1rem;
     justify-content: center;
   }
 
@@ -1171,16 +1206,19 @@ footer {
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    width: 100%;
   }
 
   .btn {
     width: 100%;
     max-width: 280px;
     justify-content: center;
+    padding: 0.8rem 1.5rem;
   }
 
   .social-links {
     justify-content: center;
+    gap: 0.8rem;
   }
 
   .social-links a {
@@ -1190,17 +1228,18 @@ footer {
   }
 
   .section {
-    padding: 3rem 1rem;
+    padding: 3rem 1.5rem;
   }
 
   .section-title {
     font-size: 2rem;
+    margin-bottom: 2rem;
   }
 
   .about-container {
     flex-direction: column;
     text-align: center;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .about-photo-wrapper {
@@ -1210,27 +1249,31 @@ footer {
   }
 
   .about-text {
-    padding: 0 0.5rem;
+    padding: 0;
+  }
+
+  .about-text p {
+    font-size: 1rem;
   }
 
   .row {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .education-horizontal {
     justify-content: center;
-    gap: 0.8rem;
+    gap: 1rem;
   }
 
   .edu-card {
     flex: 1 1 160px;
-    padding: 1rem;
+    padding: 1.2rem;
     min-width: 140px;
   }
 
   .edu-year {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     min-width: 50px;
   }
 
@@ -1260,13 +1303,18 @@ footer {
   .projects-grid,
   .achievements-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .cert-card,
   .project-card,
   .achievement-card {
     max-width: 100%;
+  }
+
+  .cert-img-container,
+  .project-img-container {
+    height: 180px;
   }
 
   .internship-card {
@@ -1289,12 +1337,12 @@ footer {
   }
 
   .internship-card li {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   footer {
-    padding: 2rem 1rem;
-    font-size: 1rem;
+    padding: 2rem 1.5rem;
+    font-size: 0.95rem;
   }
 
   .footer-links {
@@ -1314,5 +1362,24 @@ footer {
   .project-card:active,
   .achievement-card:active {
     transform: scale(0.98);
+    transition: transform 0.1s;
   }
+}
+
+/* ========== ADDITIONAL SCROLL ANIMATIONS ========== */
+/* Parallax effect on particles */
+.particles {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth entrance for all sections */
+.section {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Floating effect for cards */
+.edu-card, .skill-card, .cert-card, .project-card, .achievement-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
 }
