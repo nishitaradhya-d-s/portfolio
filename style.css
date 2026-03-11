@@ -1131,4 +1131,40 @@ footer {
   .projects-grid, .certificates-grid {
     grid-template-columns: 1fr;
   }
+
+}
+@media (max-width: 768px) {
+  /* existing rules... */
+  
+  /* Add these new rules */
+  .section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .about-text {
+    padding: 0 0.5rem; /* add a little extra horizontal padding */
+  }
+  
+  .hero {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  
+  .hero-text {
+    padding: 0 0.5rem;
+  }
+  
+  .education-horizontal {
+    gap: 1rem;
+  }
+  
+  .edu-card {
+    padding: 1rem;
+  }
+  
+  /* If certificates are still touching edges */
+  .certificates-grid {
+    gap: 1rem;
+  }
 }
