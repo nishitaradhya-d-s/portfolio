@@ -7,7 +7,26 @@ themeToggle.addEventListener('click', () => {
     themeToggle.style.transform = 'scale(1)';
   }, 200);
 });
-// Custom cursor
+
+// ========== CURSOR TRAIL (optional) ==========
+const trail = document.createElement('div');
+trail.className = 'cursor-trail';
+document.body.appendChild(trail);
+
+document.addEventListener('mousemove', (e) => {
+  trail.style.left = e.pageX - 4 + 'px';
+  trail.style.top = e.pageY - 4 + 'px';
+});
+
+document.addEventListener('mouseleave', () => {
+  trail.style.opacity = '0';
+});
+
+document.addEventListener('mouseenter', () => {
+  trail.style.opacity = '0.6';
+});
+
+// ========== CUSTOM CURSOR (optional) ==========
 const cursor = document.createElement('div');
 cursor.className = 'custom-cursor';
 document.body.appendChild(cursor);
@@ -25,24 +44,6 @@ document.addEventListener('mousedown', () => {
 document.addEventListener('mouseup', () => {
   cursor.style.width = '20px';
   cursor.style.height = '20px';
-});
-
-// ========== CURSOR TRAIL EFFECT ==========
-const trail = document.createElement('div');
-trail.className = 'cursor-trail';
-document.body.appendChild(trail);
-
-document.addEventListener('mousemove', (e) => {
-  trail.style.left = e.pageX - 4 + 'px';
-  trail.style.top = e.pageY - 4 + 'px';
-});
-
-document.addEventListener('mouseleave', () => {
-  trail.style.opacity = '0';
-});
-
-document.addEventListener('mouseenter', () => {
-  trail.style.opacity = '0.6';
 });
 
 // ========== SCROLL EFFECT FOR PROFILE PHOTO ==========
@@ -87,17 +88,18 @@ function updateProfilePosition() {
 window.addEventListener('scroll', updateProfilePosition);
 window.addEventListener('resize', updateProfilePosition);
 
-// ========== INTERSECTION OBSERVER FOR SECTION FADE (LOWER THRESHOLD FOR MOBILE) ==========
+// ========== INTERSECTION OBSERVER (IMPROVED) ==========
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
+      console.log('Section visible:', entry.target.className); // for debugging
     } else {
       entry.target.classList.remove('visible');
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' }); // <-- changed to 0.1
+}, { threshold: 0.2, rootMargin: '0px' }); // removed negative rootMargin
 sections.forEach(section => observer.observe(section));
 
 // ========== STAGGER SKILL CARDS ==========
@@ -115,4 +117,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   });
 });
-
