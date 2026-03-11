@@ -35,16 +35,36 @@ body.light-theme {
   --footer-bg: #e0e7ff;
 }
 
+/* Light theme skill card fixes */
+body.light-theme .skill-card {
+  color: var(--text-primary);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .skill-card i {
+  color: var(--brand-color);
+}
+
+body.light-theme .skill-card:hover {
+  background: var(--brand-color);
+  color: white !important;
+  border-color: transparent;
+}
+
+body.light-theme .skill-card:hover i {
+  color: white;
+}
+
 body {
   background: var(--bg-body);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   transition: background 0.5s, color 0.3s;
-  cursor: none; /* hide default cursor, we'll use custom */
+  cursor: none;
 }
 
-/* Custom cursor with trail */
+/* Custom cursor (optional) */
 .custom-cursor {
   position: fixed;
   width: 20px;
@@ -67,7 +87,6 @@ body {
   pointer-events: none;
   z-index: 9998;
   opacity: 0.6;
-  transition: opacity 0.2s;
   filter: blur(2px);
 }
 
@@ -114,7 +133,7 @@ body {
   100% { transform: translate(100px, -50px) scale(1.5); }
 }
 
-/* Theme toggle with neon */
+/* Theme toggle */
 .theme-toggle {
   position: fixed;
   top: 20px;
@@ -167,7 +186,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   50% { box-shadow: 0 0 70px var(--glow-color), 0 0 0 4px var(--glow-color-2) inset; }
 }
 
-/* Hero section */
+/* ========== HERO ========== */
 .hero {
   position: relative;
   background: var(--hero-gradient);
@@ -432,7 +451,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   box-shadow: 0 0 30px var(--glow-color);
 }
 
-/* About section */
+/* ========== ABOUT ========== */
 .about-container {
   display: flex;
   align-items: center;
@@ -484,7 +503,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
 .section.visible .about-text p:nth-child(1) { transition-delay: 0.1s; }
 .section.visible .about-text p:nth-child(2) { transition-delay: 0.2s; }
 
-/* Section titles */
+/* ========== SECTION TITLES ========== */
 .section-title {
   font-size: 2.5rem;
   font-weight: 600;
@@ -520,21 +539,71 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   50% { width: 100px; left: 20px; }
 }
 
-/* Sections base */
+/* ========== SECTIONS BASE ========== */
 .section {
   padding: 5rem 2rem;
   border-bottom: 1px solid var(--border-color);
   opacity: 0;
-  transform: translateY(30px);
+  transform: perspective(600px) rotateX(5deg) translateY(30px);
+  transform-origin: top;
   transition: opacity 0.8s, transform 0.8s;
 }
 
 .section.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: perspective(600px) rotateX(0) translateY(0);
 }
 
-/* Education */
+/* Different 3D entrances for each section type (optional) */
+.education.section.visible {
+  animation: flipIn 0.8s ease forwards;
+}
+.skills.section.visible {
+  animation: slideIn3D 0.8s ease forwards;
+}
+.certificates.section.visible {
+  animation: rotateIn 0.8s ease forwards;
+}
+.projects.section.visible {
+  animation: zoomIn3D 0.8s ease forwards;
+}
+.achievements.section.visible {
+  animation: swingIn 0.8s ease forwards;
+}
+
+@keyframes flipIn {
+  0% { opacity: 0; transform: perspective(400px) rotateX(15deg) translateY(30px); }
+  100% { opacity: 1; transform: perspective(400px) rotateX(0) translateY(0); }
+}
+
+@keyframes slideIn3D {
+  0% { opacity: 0; transform: perspective(400px) translateZ(-100px) translateX(-30px); }
+  100% { opacity: 1; transform: perspective(400px) translateZ(0) translateX(0); }
+}
+
+@keyframes rotateIn {
+  0% { opacity: 0; transform: perspective(400px) rotateY(15deg) translateY(30px); }
+  100% { opacity: 1; transform: perspective(400px) rotateY(0) translateY(0); }
+}
+
+@keyframes zoomIn3D {
+  0% { opacity: 0; transform: perspective(400px) scale3d(0.8, 0.8, 0.8) translateY(30px); }
+  100% { opacity: 1; transform: perspective(400px) scale3d(1, 1, 1) translateY(0); }
+}
+
+@keyframes swingIn {
+  0% { opacity: 0; transform: perspective(400px) rotateX(-10deg) rotateY(10deg) translateY(30px); }
+  100% { opacity: 1; transform: perspective(400px) rotateX(0) rotateY(0) translateY(0); }
+}
+
+/* ========== ROW (two columns) ========== */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+/* ========== EDUCATION ========== */
 .education-horizontal {
   display: flex;
   flex-wrap: wrap;
@@ -554,8 +623,9 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   border: 1px solid var(--border-color);
   min-width: 180px;
   transform-style: preserve-3d;
-  animation: cardFloat 5s infinite;
+  perspective: 500px;
   cursor: pointer;
+  animation: cardFloat 5s infinite;
 }
 
 @keyframes cardFloat {
@@ -565,20 +635,9 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
 }
 
 .edu-card:hover {
-  transform: rotateY(180deg);
-}
-
-.edu-card:hover .edu-year,
-.edu-card:hover .edu-detail {
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-}
-
-/* Not perfect, but we could use a flip card structure. Alternatively, keep hover simple */
-.edu-card:hover {
-  transform: translateY(-10px) scale(1.05) rotate(2deg);
+  transform: rotateY(10deg) rotateX(5deg) scale(1.05);
   border-color: var(--glow-color);
-  box-shadow: 0 0 30px var(--glow-color);
+  box-shadow: 0 20px 30px -8px var(--glow-color);
 }
 
 .edu-year {
@@ -586,9 +645,35 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   font-weight: 700;
   color: var(--glow-color);
   min-width: 70px;
+  transition: transform 0.3s;
 }
 
-/* Skills */
+.edu-card:hover .edu-year {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.edu-detail h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.edu-detail p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.grade {
+  background: linear-gradient(135deg, var(--glow-color)20, var(--glow-color-2)20);
+  padding: 0.3rem 1rem;
+  border-radius: 40px;
+  font-size: 0.9rem;
+  color: var(--glow-color-2);
+  border: 1px solid var(--glow-color)40;
+  display: inline-block;
+}
+
+/* ========== SKILLS ========== */
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -641,6 +726,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   color: white;
   border-color: transparent;
   box-shadow: 0 0 30px var(--brand-color);
+  transform: translateY(-5px) scale(1.08);
 }
 
 .skill-card i {
@@ -654,7 +740,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   75% { transform: rotate(-5deg); }
 }
 
-/* Certificates grid */
+/* ========== CERTIFICATES ========== */
 .certificates-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -671,12 +757,22 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   transform-style: preserve-3d;
   perspective: 1000px;
   cursor: pointer;
+  animation: cardFadeIn 0.6s ease backwards;
+}
+
+.cert-card:nth-child(1) { animation-delay: 0.1s; }
+.cert-card:nth-child(2) { animation-delay: 0.2s; }
+.cert-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes cardFadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .cert-card:hover {
-  transform: rotateX(10deg) rotateY(10deg) scale(1.05);
-  box-shadow: 0 30px 40px rgba(0,0,0,0.5);
+  transform: rotateX(5deg) rotateY(5deg) scale(1.05);
   border-color: var(--glow-color);
+  box-shadow: 0 30px 40px rgba(0,0,0,0.5);
 }
 
 .cert-img-container {
@@ -711,7 +807,6 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
-  text-transform: uppercase;
   backdrop-filter: blur(5px);
 }
 
@@ -723,7 +818,17 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   padding: 1.2rem;
 }
 
-/* Internship */
+.cert-info h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.cert-info p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ========== INTERNSHIP ========== */
 .internship-card {
   background: var(--card-bg);
   backdrop-filter: blur(5px);
@@ -734,6 +839,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   height: 100%;
   position: relative;
   overflow: hidden;
+  animation: cardFadeIn 0.6s ease 0.2s backwards;
 }
 
 .internship-card::before {
@@ -747,6 +853,11 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   animation: rotateConic 10s linear infinite;
   opacity: 0;
   transition: opacity 0.3s;
+}
+
+@keyframes rotateConic {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .internship-card:hover::before {
@@ -776,7 +887,47 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   transform: rotate(360deg) scale(1.2);
 }
 
-/* Projects */
+.internship-header h3 {
+  font-size: 1.5rem;
+}
+
+.place {
+  color: var(--glow-color);
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.internship-card ul {
+  list-style: none;
+}
+
+.internship-card li {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  transition: transform 0.2s;
+}
+
+.internship-card:hover li {
+  transform: translateX(5px);
+}
+
+.internship-card li:nth-child(1) { transition-delay: 0.05s; }
+.internship-card li:nth-child(2) { transition-delay: 0.1s; }
+.internship-card li:nth-child(3) { transition-delay: 0.15s; }
+
+.internship-card li i {
+  color: var(--glow-color);
+  font-size: 1.2rem;
+}
+
+/* ========== PROJECTS ========== */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -793,7 +944,14 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   transform-style: preserve-3d;
   perspective: 1000px;
   cursor: pointer;
+  animation: cardFadeIn 0.6s ease backwards;
 }
+
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.2s; }
+.project-card:nth-child(3) { animation-delay: 0.3s; }
+.project-card:nth-child(4) { animation-delay: 0.4s; }
+.project-card:nth-child(5) { animation-delay: 0.5s; }
 
 .project-card:hover {
   transform: rotateX(5deg) rotateY(5deg) scale(1.05);
@@ -841,6 +999,10 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   opacity: 1;
 }
 
+.project-overlay p {
+  margin-bottom: 1rem;
+}
+
 .project-github {
   display: inline-flex;
   align-items: center;
@@ -861,7 +1023,13 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   box-shadow: 0 0 20px var(--glow-color);
 }
 
-/* Achievements */
+.project-card h3 {
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+/* ========== ACHIEVEMENTS ========== */
 .achievements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -879,7 +1047,14 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  animation: cardFadeIn 0.6s ease backwards;
 }
+
+.achievement-card:nth-child(1) { animation-delay: 0.1s; }
+.achievement-card:nth-child(2) { animation-delay: 0.2s; }
+.achievement-card:nth-child(3) { animation-delay: 0.3s; }
+.achievement-card:nth-child(4) { animation-delay: 0.4s; }
+.achievement-card:nth-child(5) { animation-delay: 0.5s; }
 
 .achievement-card::before {
   content: '';
@@ -920,7 +1095,17 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
   transform: scale(1.5);
 }
 
-/* Footer */
+.achievement-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-card p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* ========== FOOTER ========== */
 footer {
   background: var(--footer-bg);
   padding: 2.5rem;
@@ -960,15 +1145,62 @@ footer::before {
   text-shadow: 0 0 20px var(--glow-color);
 }
 
-/* Mobile responsive – keep animations but adjust sizes */
+/* ========== MOBILE RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .hero { padding: 2rem 1rem; }
-  .profile-img-container { width: 200px; height: 200px; }
-  .name { font-size: 2.5rem; }
-  .section { padding: 3rem 1rem; }
-  .about-photo-wrapper { width: 200px; height: 200px; }
-  .education-horizontal { justify-content: center; }
-  .row { grid-template-columns: 1fr; }
-  .certificates-grid, .projects-grid, .achievements-grid { grid-template-columns: 1fr; }
-  .footer-links a { font-size: 1.5rem; }
+  .hero {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+  .profile-img-container {
+    width: 200px;
+    height: 200px;
+  }
+  .name {
+    font-size: 2.2rem;
+  }
+  .section {
+    padding: 3rem 1rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .about-photo-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+  .row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .education-horizontal {
+    justify-content: center;
+  }
+  .edu-card {
+    flex: 1 1 160px;
+    padding: 1rem;
+  }
+  .certificates-grid,
+  .projects-grid,
+  .achievements-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .internship-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links a {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========== TOUCH DEVICE FEEDBACK ========== */
+@media (hover: none) and (pointer: coarse) {
+  .edu-card:active,
+  .skill-card:active,
+  .cert-card:active,
+  .project-card:active,
+  .achievement-card:active {
+    transform: scale(0.98);
+  }
 }
