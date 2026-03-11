@@ -68,7 +68,7 @@ function updateProfilePosition() {
 window.addEventListener('scroll', updateProfilePosition);
 window.addEventListener('resize', updateProfilePosition);
 
-// ========== INTERSECTION OBSERVER FOR SECTION FADE ==========
+// ========== INTERSECTION OBSERVER FOR SECTION FADE (LOWER THRESHOLD FOR MOBILE) ==========
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -78,7 +78,7 @@ const observer = new IntersectionObserver((entries) => {
       entry.target.classList.remove('visible');
     }
   });
-}, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' }); // <-- changed to 0.1
 sections.forEach(section => observer.observe(section));
 
 // ========== STAGGER SKILL CARDS ==========
