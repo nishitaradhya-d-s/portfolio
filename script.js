@@ -7,6 +7,25 @@ themeToggle.addEventListener('click', () => {
     themeToggle.style.transform = 'scale(1)';
   }, 200);
 });
+// Custom cursor
+const cursor = document.createElement('div');
+cursor.className = 'custom-cursor';
+document.body.appendChild(cursor);
+
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+document.addEventListener('mousedown', () => {
+  cursor.style.width = '25px';
+  cursor.style.height = '25px';
+});
+
+document.addEventListener('mouseup', () => {
+  cursor.style.width = '20px';
+  cursor.style.height = '20px';
+});
 
 // ========== CURSOR TRAIL EFFECT ==========
 const trail = document.createElement('div');
@@ -96,3 +115,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   });
 });
+
