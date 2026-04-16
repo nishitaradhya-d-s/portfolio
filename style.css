@@ -352,7 +352,7 @@ body.light-theme .theme-toggle .fa-moon { display: none; }
 }
 
 .internship-info {
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   color: var(--glow-color);
   margin-bottom: 1.5rem;
   display: flex;
